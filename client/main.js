@@ -470,6 +470,16 @@ for(let i=0;i<10;i++){
                 draw_ship(i,j);
             }
         });
+        cell.addEventListener('keydown',function (e){
+            let keycode1 = (e.keyCode ? e.keyCode : e.which);
+            if (keycode1 == 0 || keycode1 == 82) {
+                e.preventDefault();
+                e.stopPropagation();
+                update_map();
+                rotated^=1;
+                draw_ship(i,j);
+            }
+        });
         map_id.appendChild(cell);
     }
 }
