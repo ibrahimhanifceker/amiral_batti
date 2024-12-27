@@ -472,6 +472,7 @@ for(let i=0;i<10;i++){
         });
         cell.addEventListener('keydown',function (e){
             let keycode1 = (e.keyCode ? e.keyCode : e.which);
+            console.log(e.keyCode);
             if (keycode1 == 0 || keycode1 == 82) {
                 e.preventDefault();
                 e.stopPropagation();
