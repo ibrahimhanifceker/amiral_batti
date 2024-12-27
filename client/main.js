@@ -433,13 +433,20 @@ function change_ship(){
 document.getElementsByTagName('html')[0].addEventListener('keydown',function (e)
 {
     let keycode1 = (e.keyCode ? e.keyCode : e.which);
-    if (keycode1 == 0 || keycode1 == 9) {
+    if (keycode1 == 9) {
         e.preventDefault();
         e.stopPropagation();
         change_ship();
         if(last_x!=-1){
             draw_ship(last_x,last_y);
         }
+    }
+    else if(keycode1 == 82){
+        e.preventDefault();
+        e.stopPropagation();
+        update_map();
+        rotated^=1;
+        draw_ship(last_x,last_y);
     }
 });
 
@@ -470,17 +477,6 @@ for(let i=0;i<10;i++){
                 draw_ship(i,j);
             }
         });
-        cell.addEventListener('keydown',function (e){
-            let keycode1 = (e.keyCode ? e.keyCode : e.which);
-            console.log(e.keyCode);
-            if (keycode1 == 0 || keycode1 == 82) {
-                e.preventDefault();
-                e.stopPropagation();
-                update_map();
-                rotated^=1;
-                draw_ship(i,j);
-            }
-        });
         map_id.appendChild(cell);
     }
 }
@@ -501,6 +497,7 @@ for(let i=0;i<10;i++){
                 update_map2();
                 socket.emit('move_made',vis);
                 turn='opponents';
+                document.getElementById('map2').style.cursor='default';
             }
         })
         map2_id.appendChild(cell);
@@ -517,11 +514,15 @@ socket.on('both_ready',function(data){
     map2_id.style.visibility="visible";
     map2=data[0];
     turn=data[1];
+    if(turn=='mine'){
+        document.getElementById('map2').style.cursor='crosshair';
+    }
     update_map2();
 });
 
 socket.on('turn',function(data){
     turn='mine';
+    document.getElementById('map2').style.cursor='crosshair';
     vis2=data;
     update_map();
 });
