@@ -14,7 +14,7 @@
     grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
 }
 #map2{
-    cursor: crosshair;
+    cursor: default;
     float: left;
     margin-left: 50px;
     visibility: hidden;
